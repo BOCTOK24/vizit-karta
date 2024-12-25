@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sr"> <!-- Default language -->
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Advokat Predrag Cumpf</title>
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-  <!-- Basic styling -->
   <style>
     /* Reset some default browser styles */
     * {
@@ -82,10 +81,10 @@
     .action-buttons {
       /* Center the group, limit width so they don't stretch edge-to-edge */
       display: flex;
-      justify-content: center;      /* horizontally center */
-      gap: 5rem;                    /* space between each button */
-      margin: 20px auto;           /* top/bottom spacing and auto center */
-      max-width: 400px;            /* optional: a limit so they don't run too far apart */
+      justify-content: center;
+      gap: 3rem;
+      margin: 20px auto;
+      max-width: 400px;
     }
 
     /* Each button in the action area */
@@ -95,7 +94,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;                     /* small space between icon and text */
+      gap: 4px;
     }
     .action-buttons i.material-icons {
       font-size: 2rem;
@@ -106,7 +105,7 @@
       position: fixed;
       right: 16px;
       bottom: 16px;
-      z-index: 999; /* Ensure it floats on top */
+      z-index: 999;
     }
     .fab-button {
       background-color: #148ce7;
@@ -127,10 +126,10 @@
     .fab-button i.material-icons {
       font-size: 28px;
     }
-	
-	    /* Embedded Google Map */
+
+    /* Embedded Map */
     .map-container {
-      margin: 20px auto 0 auto;
+      margin: 20px auto 30px auto;
       max-width: 600px;
       height: 300px;
       border-radius: 6px;
@@ -138,24 +137,49 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
 
-    .map-container iframe {
+    .map-container img {
       width: 100%;
       height: 100%;
-      border: none;
+      object-fit: cover;
     }
-	
+
+    /* Simple Language Buttons styling */
+    .language-switch {
+      max-width: 600px;
+      margin: 10px auto;
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .lang-btn {
+      background-color: #148ce7;
+      color: #fff;
+      border: none;
+      padding: 8px 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .lang-btn:hover {
+      background-color: #0b78c1;
+    }
+
   </style>
 </head>
 <body>
-  
+
+  <!-- Language Switch Buttons -->
+  <div class="language-switch">
+    <button class="lang-btn" onclick="setLanguage('sr')">СРБ</button>
+    <button class="lang-btn" onclick="setLanguage('en')">ENG</button>
+    <button class="lang-btn" onclick="setLanguage('ru')">РУC</button>
+  </div>
+
   <!-- Contact Card -->
   <div class="contact-card">
     <!-- Profile Info -->
     <div class="profile-section">
-      <!-- Example avatar or company logo -->
-      <!-- <img src="https://via.placeholder.com/120" alt="Profile Photo" /> -->
-      <h2 id="fullname">Predrag Cumpf</h2>
-      <h6 id="jobtitle">Advokat</h6>
+      <h2 id="fullname">Предраг Цумпф</h2>
+      <h6 id="jobtitle">Адвокат</h6>
     </div>
     
     <!-- Optional: Additional Contact Info -->
@@ -163,62 +187,114 @@
       <div class="info-row">
         <i class="material-icons">phone</i>
         <a id="phoneLink" href="tel:+381641908374">064/190-8374</a>
-        <small>Mobilni</small>
+        <small id="phoneType">Мобилни</small>
       </div>
       <div class="info-row">
         <i class="material-icons">email</i>
-        <a id="emailLink" href="mailto:predragcumpf@gmail.com?subject=Test">
+        <a id="emailLink" href="mailto:predragcumpf@gmail.com">
           predragcumpf@gmail.com
         </a>
-        <small>E-pošta</small>
+        <small id="emailLabel">Е-пошта</small>
       </div>
       <div class="info-row">
         <i class="material-icons">location_on</i>
-        <span id="addressText">Bulevar kralja Aleksandra 193B</span>
-        <small>Adresa</small>
+        <span id="addressText">Bulevar kralja Aleksandra 193B<br>11000 Beograd, Srbija</span>
       </div>
     </div>
 
     <!-- Centered and Spaced Action Buttons: Call, Email, Directions -->
     <div class="action-buttons">
       <!-- Call -->
-      <a href="tel:+381641908374">
+      <a id="callAction" href="tel:+381641908374">
         <i class="material-icons">phone</i>
-        <span>Poziv</span>
+        <span id="callLabel">Позив</span>
       </a>
 
       <!-- Email -->
-      <a href="mailto:predragcumpf@gmail.com?subject=Test">
+      <a id="emailAction" href="mailto:predragcumpf@gmail.com">
         <i class="material-icons">email</i>
-        <span>E-pošta</span>
+        <span id="contactLabel">Контакт</span>
       </a>
 
       <!-- Directions -->
       <a 
-		href="https://www.google.com/maps/dir/?api=1&destination=Bulevar+kralja+Aleksandra+193b,+Beograd"
+        id="directionsAction"
+        href="https://www.google.com/maps/dir/?api=1&destination=Bulevar+kralja+Aleksandra+193b,+Beograd"
         target="_blank" 
-        rel="noopener noreferrer">
+        rel="noopener noreferrer"
+      >
         <i class="material-icons">map</i>
-        <span>Navigacija</span>
+        <span id="directionsLabel">Навигација</span>
       </a>
     </div>
   </div>
   
-    <!-- Google Map Embed -->
+  <!-- Map Embed -->
   <div class="map-container">
-    <iframe
-      src="https://www.google.com/maps?q=Bulevar+kralja+Aleksandra+193b,+Beograd&output=embed"
-      allowfullscreen
-    ></iframe>
+    <img src="lokacija-point.png" alt="Location Map" />
   </div>
 
   <!-- Floating Action Button to download vCard -->
   <div class="fab-container">
-    <!-- Replace 'your_contact_file.vcf' with your actual .vcf link or file path -->
     <a class="fab-button" href="adv_predrag_cumpf_kontakt.vcf" download>
       <i class="material-icons">person_add</i>
     </a>
   </div>
 
+  <script>
+    // Define translations for each language
+    const translations = {
+      sr: {
+        fullname: "Предраг Цумпф",
+        jobtitle: "Адвокат",
+        phoneType: "Мобилни",
+        emailLabel: "E-пошта",
+        addressText: "Булевар краља Александра 193Б<br>11000 Београд, Србија",
+        callLabel: "Позив",
+        contactLabel: "Контакт",
+        directionsLabel: "Навигација"
+      },
+      en: {
+        fullname: "Predrag Cumpf",
+        jobtitle: "Attorney At Law",
+        phoneType: "Mobile",
+        emailLabel: "Email",
+        addressText: "Bulevar kralja Aleksandra 193b<br>11000 Belgrade, Serbia",
+        callLabel: "Call",
+        contactLabel: "Contact",
+        directionsLabel: "Directions"
+      },
+      ru: {
+        fullname: "Предраг Цумпф",
+        jobtitle: "Адвокат",
+        phoneType: "Мобильный",
+        emailLabel: "Электронная почта",
+        addressText: "Булевар краља Александра 193Б<br>11000 Белград, Сербия",
+        callLabel: "Позвонить",
+        contactLabel: "Контакт",
+        directionsLabel: "Маршрут"
+      }
+    };
+  
+    function setLanguage(lang) {
+      // Change the lang attribute on the HTML element
+      document.documentElement.setAttribute('lang', lang);
+  
+      // Update text by IDs
+      document.getElementById("fullname").textContent          = translations[lang].fullname;
+      document.getElementById("jobtitle").textContent          = translations[lang].jobtitle;
+      document.getElementById("phoneType").textContent         = translations[lang].phoneType;
+      document.getElementById("emailLabel").textContent        = translations[lang].emailLabel;
+      document.getElementById("addressText").innerHTML         = translations[lang].addressText; 
+      document.getElementById("callLabel").textContent         = translations[lang].callLabel;
+      document.getElementById("contactLabel").textContent      = translations[lang].contactLabel;
+      document.getElementById("directionsLabel").textContent   = translations[lang].directionsLabel;
+    }
+  
+    // Set the default language on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      setLanguage('sr'); // Set Serbian as the default language
+    });
+  </script>
 </body>
 </html>

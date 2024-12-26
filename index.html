@@ -2,7 +2,7 @@
 <html lang="sr"> <!-- Default language -->
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Advokat Predrag Cumpf</title>
   <!-- Google Material Icons -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -22,16 +22,17 @@
       padding: 0;
     }
 
-    /* Container for the card */
+    /* Contact Card */
     .contact-card {
+      margin: 30px auto; 
       max-width: 600px;
-      margin: 30px auto; /* center horizontally + top spacing */
+      width: calc(100% - 20px);
+
       background: #fff;
-      padding: 20px;
+      padding: 10px;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     }
-
     .profile-section {
       text-align: center;
     }
@@ -50,6 +51,29 @@
       margin-bottom: 10px;
       color: #777;
       font-weight: normal;
+    }
+
+    #emailLink {
+      white-space: nowrap; /* Prevent wrapping */
+      text-overflow: ellipsis; /* Optionally, truncate with ellipsis if content overflows */
+      display: inline-block; /* Ensure proper inline behavior */
+    }
+
+    #emailLabel {
+      white-space: normal; /* Allow wrapping */
+      overflow: hidden;
+      display: inline; /* Ensure it wraps as usual */
+    }
+
+    #phoneLink {
+      white-space: nowrap; /* Prevent wrapping for phone link as well */
+      display: inline-block; /* Ensure proper inline behavior */
+    }
+
+    #phoneType {
+      white-space: normal; /* Allow wrapping for phone label */
+      overflow: hidden;
+      display: inline; /* Ensure it wraps as usual */
     }
 
     /* Info rows under the profile (optional) */
@@ -73,51 +97,75 @@
       word-break: break-all; /* handle long text on small screens */
     }
     .info-row small {
-      color: #666;
+      color: rgb(124, 124, 124);
       margin-left: 4px;
+    }
+    
+    /* Adjust Add Contact text positioning */
+    .action-buttons #addContactAction span {
+      margin-left: 6px; /* Fine-tune this value as needed */
     }
 
     /* Action buttons wrapper */
     .action-buttons {
-      /* Center the group, limit width so they don't stretch edge-to-edge */
       display: flex;
-      justify-content: center;
-      gap: 3rem;
+      justify-content: space-between; /* Ensure even spacing between buttons */
+      align-items: center; /* Align items centrally in cross-axis */
       margin: 20px auto;
       max-width: 400px;
+      gap: 3rem; /* Add consistent spacing between buttons */
+      position: relative; /* Enables absolute positioning for the centered button */
     }
 
-    /* Each button in the action area */
+    /* Center the "Contact" button */
+    .action-buttons a:nth-child(2) {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%); /* Center align horizontally */
+    }
+
+    /* Style for individual action buttons */
     .action-buttons a {
-      text-decoration: none;
-      color: #148ce7;
+      text-decoration: none; /* Remove underline from links */
+      color: #148ce7; /* Icon and text color */
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .action-buttons i.material-icons {
-      font-size: 2rem;
+      flex-direction: column; /* Stack icon and text vertically */
+      align-items: center; /* Center-align icon and text */
+      gap: 4px; /* Spacing between icon and text */
+      width: calc(33.333% - 1.5rem); /* Equal width for each button with some margin */
+      text-align: center; /* Ensure text aligns centrally under the icon */
     }
 
-    /* Floating button to download contact vCard (Add Contact) */
+    /* Icon size for action buttons */
+    .action-buttons i.material-icons {
+      font-size: 2rem; /* Adjust icon size as needed */
+    }
+
+    /* Text size for action button labels */
+    .action-buttons a span {
+      font-size: 1rem; /* Adjust text size */
+      white-space: nowrap; /* Prevent text wrapping */
+    }
+
+
+    /* Floating button for taking user to Google Maps Nav */
     .fab-container {
       position: fixed;
-      right: 16px;
-      bottom: 16px;
+      right: 2vw; /* Use viewport width to keep consistent positioning */
+      bottom: 2vh; /* Use viewport height to keep consistent positioning */
       z-index: 999;
     }
     .fab-button {
       background-color: #148ce7;
       color: #fff;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
+      width: 56px; /* Rounded square width */
+      height: 56px; /* Rounded square height */
+      border-radius: 12px; /* Rounded corners */
       display: flex;
       justify-content: center;
       align-items: center;
       text-decoration: none;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       transition: background-color 0.3s ease;
     }
     .fab-button:hover {
@@ -127,40 +175,62 @@
       font-size: 28px;
     }
 
-    /* Embedded Map */
+
+    /* Map Container */
     .map-container {
+      
       margin: 20px auto 30px auto;
+
+      /* Same logic for horizontal gap: */
+      width: calc(100% - 20px);
       max-width: 600px;
+
       height: 300px;
       border-radius: 6px;
       overflow: hidden;
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      touch-action: none;
+      position: relative;
+      background: #000; /* optional if you want black behind the image */
     }
 
     .map-container img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform-origin: center center;
+      transition: none;
     }
+
 
     /* Simple Language Buttons styling */
     .language-switch {
-      max-width: 600px;
-      margin: 10px auto;
+      position: absolute; /* Use absolute positioning */
+      top: 5px; /* Vertical margin from the top */
+      right: 10px; /* Horizontal margin from the right */
       display: flex;
-      justify-content: flex-end;
-      gap: 10px;
+      gap: 10px; /* Maintain spacing between buttons */
+      z-index: 1000; /* Ensure they appear above other content */
     }
+
+    /* Language Button Styles */
     .lang-btn {
-      background-color: #148ce7;
-      color: #fff;
-      border: none;
-      padding: 8px 12px;
-      border-radius: 4px;
-      cursor: pointer;
+      background-color: transparent; /* Remove button background */
+      border: none; /* Remove button border */
+      padding: 0; /* Remove button padding */
+      cursor: pointer; /* Add pointer cursor */
     }
+
     .lang-btn:hover {
-      background-color: #0b78c1;
+      opacity: 0.8; /* Add hover effect */
+    }
+
+    /* Language Flag Styles */
+    .lang-flag {
+      width: 30px; /* Slightly larger width */
+      height: 20px; /* Proportional height for aspect ratio */
+      display: block; /* Ensure proper alignment */
+      border-radius: 3px; /* Slightly increase rounding for aesthetics */
     }
 
   </style>
@@ -169,9 +239,15 @@
 
   <!-- Language Switch Buttons -->
   <div class="language-switch">
-    <button class="lang-btn" onclick="setLanguage('sr')">СРБ</button>
-    <button class="lang-btn" onclick="setLanguage('en')">ENG</button>
-    <button class="lang-btn" onclick="setLanguage('ru')">РУC</button>
+    <button class="lang-btn" onclick="setLanguage('sr')">
+      <img src="rs.svg#svgView(preserveAspectRatio(none))" alt="Serbian" class="lang-flag" />
+    </button>
+    <button class="lang-btn" onclick="setLanguage('en')">
+      <img src="gb.svg#svgView(preserveAspectRatio(none))" alt="English" class="lang-flag" />
+    </button>
+    <button class="lang-btn" onclick="setLanguage('ru')">
+      <img src="ru.svg#svgView(preserveAspectRatio(none))" alt="Russian" class="lang-flag" />
+    </button>
   </div>
 
   <!-- Contact Card -->
@@ -182,7 +258,7 @@
       <h6 id="jobtitle">Адвокат</h6>
     </div>
     
-    <!-- Optional: Additional Contact Info -->
+    <!-- Additional Contact Info -->
     <div class="info-section">
       <div class="info-row">
         <i class="material-icons">phone</i>
@@ -202,7 +278,7 @@
       </div>
     </div>
 
-    <!-- Centered and Spaced Action Buttons: Call, Email, Directions -->
+    <!-- Centered and Spaced Action Buttons: Call, Email, Add Contact -->
     <div class="action-buttons">
       <!-- Call -->
       <a id="callAction" href="tel:+381641908374">
@@ -216,32 +292,184 @@
         <span id="contactLabel">Контакт</span>
       </a>
 
-      <!-- Directions -->
+      <!-- Add Contact -->
       <a 
-        id="directionsAction"
-        href="https://www.google.com/maps/dir/?api=1&destination=Bulevar+kralja+Aleksandra+193b,+Beograd"
-        target="_blank" 
-        rel="noopener noreferrer"
+        id="addContactAction"
+        href="adv_predrag_cumpf_kontakt.vcf" 
+        download
       >
-        <i class="material-icons">map</i>
-        <span id="directionsLabel">Навигација</span>
+        <i class="material-icons">person_add</i>
+        <span id="addContactLabel">Додај Контакт</span>
       </a>
     </div>
   </div>
   
   <!-- Map Embed -->
   <div class="map-container">
-    <img src="lokacija-point.png" alt="Location Map" />
+    <img src="location-point.webp" alt="Location Map" />
   </div>
 
-  <!-- Floating Action Button to download vCard -->
+  <!-- Floating Action Button to show directions -->
   <div class="fab-container">
-    <a class="fab-button" href="adv_predrag_cumpf_kontakt.vcf" download>
-      <i class="material-icons">person_add</i>
+    <a 
+      class="fab-button" 
+      href="https://www.google.com/maps/dir/?api=1&destination=Bulevar+kralja+Aleksandra+193b,+Beograd" 
+      target="_blank" 
+      rel="noopener noreferrer"
+    >
+      <i class="material-icons">directions</i>
     </a>
   </div>
 
   <script>
+
+const mapImage = document.querySelector('.map-container img');
+const mapContainer = document.querySelector('.map-container');
+
+let scale = 1;
+let lastScale = 1;
+let minScale = 1; // The scale needed to ensure container is fully covered
+let startX = 0;
+let startY = 0;
+let deltaX = 0;
+let deltaY = 0;
+let isPanning = false;
+let startDistance = 0;
+
+let containerWidth = 0;
+let containerHeight = 0;
+let baseWidth = 0;   // The displayed image width at scale=1
+let baseHeight = 0;  // The displayed image height at scale=1
+
+mapImage.addEventListener('load', () => {
+  containerWidth = mapContainer.clientWidth;
+  containerHeight = mapContainer.clientHeight;
+
+  // Measure how the image is actually rendered inside container
+  const rect = mapImage.getBoundingClientRect();
+  baseWidth = rect.width;
+  baseHeight = rect.height;
+
+  // To ensure NO empty space, we want the image to fill the container 
+  // even at the smallest scale. So if the image is narrower than the container,
+  // or shorter than the container, we compute the scale needed to fill both.
+  // (Because object-fit: cover may already fill it at scale=1, 
+  // but we recalc just to be safe if the aspect ratio is different.)
+  const scaleX = containerWidth / baseWidth;
+  const scaleY = containerHeight / baseHeight;
+  
+  // minScale is whichever is larger so the container is fully covered
+  minScale = Math.max(scaleX, scaleY);
+
+  // If the base image doesn’t already fill the container, jump to that scale 
+  // so we never see any empty space from the start.
+  if (minScale > 1) {
+    scale = minScale;
+    lastScale = minScale;
+    updateTransform();
+  }
+});
+
+mapImage.addEventListener('touchstart', (e) => {
+  if (e.touches.length === 1) {
+    // Single-finger pan
+    isPanning = true;
+    startX = e.touches[0].pageX - deltaX;
+    startY = e.touches[0].pageY - deltaY;
+  } else if (e.touches.length === 2) {
+    // Two-finger pinch
+    isPanning = false;
+    const [touch1, touch2] = e.touches;
+    const distX = touch2.pageX - touch1.pageX;
+    const distY = touch2.pageY - touch1.pageY;
+    startDistance = Math.hypot(distX, distY);
+  }
+});
+
+mapImage.addEventListener('touchmove', (e) => {
+  e.preventDefault(); // prevent scrolling
+  if (isPanning && e.touches.length === 1) {
+    deltaX = e.touches[0].pageX - startX;
+    deltaY = e.touches[0].pageY - startY;
+
+    clampTranslation();
+    updateTransform();
+  } 
+  else if (e.touches.length === 2) {
+    // Pinch zoom
+    const [touch1, touch2] = e.touches;
+    const distX = touch2.pageX - touch1.pageX;
+    const distY = touch2.pageY - touch1.pageY;
+    const currentDistance = Math.hypot(distX, distY);
+
+    // New scale relative to the startDistance
+    scale = (currentDistance / startDistance) * lastScale;
+
+    // Enforce no empty space: can't go below minScale
+    if (scale < minScale) {
+      scale = minScale;
+    }
+    // You can also clamp a max scale if you want, e.g.:
+    // if (scale > 3) scale = 3;
+
+    clampTranslation();
+    updateTransform();
+  }
+}, { passive: false });
+
+mapImage.addEventListener('touchend', (e) => {
+  // If all touches are off, remember last scale
+  if (e.touches.length === 0) {
+    lastScale = scale; 
+  }
+  // If one touch remains, treat it as a pan
+  else if (e.touches.length === 1) {
+    isPanning = true;
+    startX = e.touches[0].pageX - deltaX;
+    startY = e.touches[0].pageY - deltaY;
+  }
+});
+
+// ------------------------------------------------------------------
+// This function clamps deltaX/deltaY so no empty space is visible
+// at the edges. The logic:
+//   1) Calculate scaled image size = baseWidth * scale
+//   2) If scaled size is bigger than container => allow panning but clamp
+//   3) If scaled size is smaller => forcibly center so no gaps
+// ------------------------------------------------------------------
+function clampTranslation() {
+  const displayWidth = baseWidth * scale;
+  const displayHeight = baseHeight * scale;
+
+  // Horizontal clamp
+  if (displayWidth <= containerWidth) {
+    // force center horizontally
+    deltaX = (containerWidth - displayWidth) / 2;
+  } else {
+    // The maximum we can move left or right
+    const maxOffsetX = (displayWidth - containerWidth) / 2;
+    if (deltaX > maxOffsetX) deltaX = maxOffsetX;
+    if (deltaX < -maxOffsetX) deltaX = -maxOffsetX;
+  }
+
+  // Vertical clamp
+  if (displayHeight <= containerHeight) {
+    // force center vertically
+    deltaY = (containerHeight - displayHeight) / 2;
+  } else {
+    const maxOffsetY = (displayHeight - containerHeight) / 2;
+    if (deltaY > maxOffsetY) deltaY = maxOffsetY;
+    if (deltaY < -maxOffsetY) deltaY = -maxOffsetY;
+  }
+}
+
+function updateTransform() {
+  mapImage.style.transform = `translate(${deltaX}px, ${deltaY}px) scale(${scale})`;
+}
+
+mapImage.addEventListener('contextmenu', (e) => e.preventDefault());
+
+
     // Define translations for each language
     const translations = {
       sr: {
@@ -252,7 +480,7 @@
         addressText: "Булевар краља Александра 193Б<br>11000 Београд, Србија",
         callLabel: "Позив",
         contactLabel: "Контакт",
-        directionsLabel: "Навигација"
+        addContactLabel: "Додај"
       },
       en: {
         fullname: "Predrag Cumpf",
@@ -262,7 +490,7 @@
         addressText: "Bulevar kralja Aleksandra 193b<br>11000 Belgrade, Serbia",
         callLabel: "Call",
         contactLabel: "Contact",
-        directionsLabel: "Directions"
+        addContactLabel: "Add"
       },
       ru: {
         fullname: "Предраг Цумпф",
@@ -272,7 +500,7 @@
         addressText: "Булевар краља Александра 193Б<br>11000 Белград, Сербия",
         callLabel: "Позвонить",
         contactLabel: "Контакт",
-        directionsLabel: "Маршрут"
+        addContactLabel: "Добавлять"
       }
     };
   
@@ -288,7 +516,7 @@
       document.getElementById("addressText").innerHTML         = translations[lang].addressText; 
       document.getElementById("callLabel").textContent         = translations[lang].callLabel;
       document.getElementById("contactLabel").textContent      = translations[lang].contactLabel;
-      document.getElementById("directionsLabel").textContent   = translations[lang].directionsLabel;
+      document.getElementById("addContactLabel").textContent   = translations[lang].addContactLabel;
     }
   
     // Set the default language on page load
